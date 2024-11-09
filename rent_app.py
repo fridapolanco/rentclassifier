@@ -12,41 +12,41 @@ with open('model.joblib', 'rb') as pickle_in:
 st.set_page_config(page_title="Rent verifier madrid", layout="wide", page_icon="🏢")
 
 # defining the function which will make the prediction using the data which the user inputs TRANSFORMATIONS & RUNNING MODEL
-def prediction(Rooms, Squared_meters, Floor, Distric, Type, Pool, Furniture, Exterior, Elevator):
+def prediction(rooms,squared_meters, floor, distric, type, pool, furniture, exterior, elevator):
 
     # Pre-processing user input    
-    if Pool == "No":
-        Pool = 0
+    if pool == "No":
+        pool = 0
     else:
-        Pool = 1
+        pool = 1
 
-    if Furniture == "No":
-        Furniture = 0
+    if furniture == "No":
+        furniture = 0
     else:
-        Furniture = 1
+        furniture = 1
 
-    if Elevator == "No":
-        Elevator = 0
+    if elevator == "No":
+        elevator = 0
     else:
-        Elevator = 1
+        elevator = 1
 
-    if Exterior == "No":
-        Exterior = 0
+    if exterior == "No":
+        exterior = 0
     else:
-        Exterior = 1
+        exterior = 1
 
     ################################
 
     data = {
-        "Rooms": Rooms,
-        "Squared_meters": Squared_meters,
-        "Floor": Floor,
-        "Distric": Distric,
-        "Type": Type,
-        "Pool": Pool,
-        "Furniture": Furniture,
-        "Exterior": Exterior,
-        "Elevator": Elevator
+        "Rooms": rooms,
+        "Squared_meters": squared_meters,
+        "Floor": floor,
+        "Distric": distric,
+        "Type": type,
+        "Pool": pool,
+        "Furniture": furniture,
+        "Exterior": exterior,
+        "Elevator": elevator
     }
 
     # Convert data into dataframe
@@ -97,25 +97,25 @@ def main():
 ################################
           
     # Following lines create input fields for prediction 
-    Rooms = st.slider('Rooms in the property', 1, 4, 1)
-    Squared_meters = st.number_input("Property Squared Meters") 
-    Floor = st.slider('What floor is the property located?', 0, 6, 1)
+    rooms = st.slider('Rooms in the property', 1, 4, 1)
+    squared_meters = st.number_input("Property Squared Meters") 
+    floor = st.slider('What floor is the property located?', 0, 6, 1)
     
     districts = ('Malasaña', 'Moncloa', 'Lavapies', 'Chueca', 'Chamartin', 'La Latina')
-    Distric = st.selectbox('What district is your property located?', districts)
+    distric = st.selectbox('What district is your property located?', districts)
 
     types = ('Flat', 'Studio', 'Duplex', 'Attic')
-    Type = st.selectbox('Which is the type of your property?', types)
+    type = st.selectbox('Which is the type of your property?', types)
 
-    Pool = st.selectbox('Does the property have a pool?', ("Yes", "No"))
-    Furniture = st.selectbox('Is the property furnished?', ("Yes", "No"))
-    Exterior = st.selectbox('Is the property exterior?', ("Yes", "No"))
-    Elevator = st.selectbox('Does the property have an elevator?', ("Yes", "No"))
+    pool = st.selectbox('Does the property have a pool?', ("Yes", "No"))
+    furniture = st.selectbox('Is the property furnished?', ("Yes", "No"))
+    exterior = st.selectbox('Is the property exterior?', ("Yes", "No"))
+    elevator = st.selectbox('Does the property have an elevator?', ("Yes", "No"))
 
     result = ""
     # when 'Predict' is clicked, make the prediction and store it 
     if st.button("Predict"): 
-        result = prediction(Rooms, Squared_meters, Floor, Distric, Type, Pool, Furniture, Exterior, Elevator)
+        result = prediction(rooms, squared_meters, floor, distric, type, pool, furniture, exterior, elevator)
         
         if result == 0:
             pred = 'No, your property monthly rent is not valued above 850 EUR.'
