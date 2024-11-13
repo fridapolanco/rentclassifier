@@ -68,27 +68,28 @@ def main():
 
     st.markdown(html_temp, unsafe_allow_html=True)
 
-    st.image("image5.jpg")
+    #banner image
+    st.image("image5.jpg", width=10000)
 
     # Create a subheader
     st.subheader("Confirm if your property's monthly rent value is above 850 EUR")
 
+    with st.expander('Expand for more information on the application'):
     # Create a markdown with details about the app
-    st.markdown(
-        """
-        ## About the app
+        st.markdown(
+            """
+            ## About the app
 
-        This app predicts if a property in Madrid can be rented for >850 EUR or not.
+            This app predicts if a property in Madrid can be rented for >850 EUR or not. The data was collected through Idealista in 2022. Please note that our train information only included certain districs so **this application does not support properties from all Madrid**. 
+            We're currently working on our next update for better user experience. Thank you for your understanding. 
 
-        ## About the data
+            ## About the model
 
-        The data was collected through Idealista in 2022.
+            The model was trained using an Gradient Booster Classifier through a Python pipeline. 
 
-        ## About the model
-
-        The model was trained using an Gradient Booster Classifier.
-        """
-    )
+            For any inquiry or problem please contanct frida.polanco@rentconsultant.com
+            """
+        )
 
     # Create a text prompt
     st.title("Please fill the form below")
@@ -97,9 +98,9 @@ def main():
 ################################
           
     # Following lines create input fields for prediction 
-    rooms = st.slider('Rooms in the property', 1, 4, 1)
+    rooms = st.slider('Rooms in the property', 1, 10, 1)
     squared_meters = st.number_input("Property Squared Meters") 
-    floor = st.slider('What floor is the property located?', 0, 6, 1)
+    floor = st.slider('What floor is the property located?', 0, 10, 1)
     
     districts = ('Malasaña', 'Moncloa', 'Lavapies', 'Chueca', 'Chamartin', 'La Latina')
     distric = st.selectbox('What district is your property located?', districts)
